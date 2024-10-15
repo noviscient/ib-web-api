@@ -1,0 +1,6 @@
+src/data/credentials.json
+src/data/*.pem
+venv/
+main.py
+__pycache__/
+.ruff_cache/
