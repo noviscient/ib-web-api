@@ -1,4 +1,4 @@
-# Python wrapper for Interactive Broker Web API [NOT COMPLETE]
+# Python wrapper for Interactive Brokers Web API [NOT COMPLETE]
 
 ## Official documentation
 
