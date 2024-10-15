@@ -1,3 +1,5 @@
+from ib.webapi.models import OrdersModel
+from ib.webapi.endpoints.order_monitoring import OrderMonitoringClient
 from ib.webapi.endpoints.account import AccountClient
 
 import logging
@@ -11,7 +13,8 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 if __name__ == "__main__":
-    client = AccountClient("data/credentials.json")
+    client = OrderMonitoringClient("data/credentials.json")
+    account = AccountClient("data/credentials.json")
 
     dh_random, oauth_params, prepend, lst_response = client.request_live_session_token()
 
@@ -30,8 +33,8 @@ if __name__ == "__main__":
     r = client.init_brokerage_session(publish=True, compete=True)
     logger.info(f"Brokerage Session: {r}")
 
-    switch_response = client.switch_account(live_session_token, "U8674826")
+    switch_response = account.switch_account(live_session_token, "U8674826")
     logger.info(f"Switch Account: {switch_response}")
 
-    pnl_response = client.account_pnl(live_session_token)
-    logger.info(f"Account PnL: {pnl_response}")
+    orders: OrdersModel = client.live_orders(live_session_token)
+    logger.info(f"Current account LIVE orders: {orders}")

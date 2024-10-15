@@ -1,6 +1,4 @@
-from typing import List
-
-from ib.webapi.models import AccountModel
+from ib.webapi.models import OrdersModel
 from ib.webapi.session import LiveSessionTokenManager
 
 
@@ -8,7 +6,7 @@ class OrderMonitoringClient(LiveSessionTokenManager):
     def __init__(self, credentials_path: str):
         super().__init__(credentials_path)
 
-    def list_live_orders(self, live_session_token: str) -> List[AccountModel] | None:
+    def live_orders(self, live_session_token: str) -> OrdersModel | None:
         """Request list orders for the selected account.
         To retrieve order information for a specific account, clients must first query the /iserver/account endpoint to switch to the appropriate account.
         https://www.interactivebrokers.com/campus/ibkr-api-page/cpapi-v1/#live-orders
@@ -17,7 +15,7 @@ class OrderMonitoringClient(LiveSessionTokenManager):
             live_session_token (str): Live Session Token
 
         Returns:
-            List[AccountModel] | None: List of Portfolio Accounts
+            OrdersModel | None: Object that contains list of orders
         """
 
         location = "/iserver/account/orders"
@@ -25,5 +23,5 @@ class OrderMonitoringClient(LiveSessionTokenManager):
             method="GET",
             location=location,
             live_session_token=live_session_token,
-            response_model=List[AccountModel],
+            response_model=OrdersModel,
         )

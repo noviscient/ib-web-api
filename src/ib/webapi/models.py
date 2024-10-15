@@ -246,3 +246,85 @@ class UpdatedPnLModel(BaseModel):
         ...,
         description="Refers to “updated PnL”. Holds a json object of key-value paired account pnl details.",
     )
+
+
+class OrderDetailModel(BaseModel):
+    acct: str = Field(..., description="Returns the accountID for the submitted order.")
+    conidex: str = Field(
+        ..., description="Returns the contract identifier for the order."
+    )
+    conid: int = Field(
+        ..., description="Returns the contract identifier for the order."
+    )
+    account: str = Field(
+        ..., description="Returns the accountID for the submitted order."
+    )
+    orderId: int = Field(
+        ..., description="Returns the local order identifier of the order."
+    )
+    cashCcy: str = Field(..., description="Returns the currency used for the order.")
+    sizeAndFills: str = Field(
+        ...,
+        description="Returns the size of the order and how much of it has been filled.",
+    )
+    orderDesc: str = Field(
+        ...,
+        description="Returns the description of the order including the side, size, order type, price, and tif.",
+    )
+    description1: str = Field(..., description="Returns the local symbol of the order.")
+    ticker: str = Field(..., description="Returns the ticker symbol for the order.")
+    secType: str = Field(..., description="Returns the security type for the order.")
+    listingExchange: str = Field(
+        ..., description="Returns the primary listing exchange of the order."
+    )
+    remainingQuantity: float = Field(
+        ..., description="Returns the remaining size for the order to fill."
+    )
+    filledQuantity: float = Field(
+        ..., description="Returns the size of the order already filled."
+    )
+    totalSize: float = Field(..., description="Returns the total size of the order.")
+    companyName: str = Field(..., description="Returns the company long name.")
+    status: str = Field(..., description="Returns the current status of the order.")
+    order_ccp_status: str = Field(
+        ..., description="Returns the current status of the order."
+    )
+    avgPrice: str = Field(
+        ..., description="Returns the average price of execution for the order."
+    )
+    origOrderType: str = Field(
+        ...,
+        description="Returns the original order type of the order, whether or not the type has been changed.",
+    )
+    supportsTaxOpt: str = Field(
+        ..., description="Returns if the order is supported by the Tax Optimizer."
+    )
+    lastExecutionTime: str = Field(
+        ...,
+        description="Returns the datetime of the order’s most recent execution. Time returned is based on UTC timezone. Value Format: YYMMDDHHmmss",
+    )
+    orderType: str = Field(
+        ...,
+        description="Returns the current order type, or the order at the time of execution.",
+    )
+    bgColor: str = Field(..., description="Internal use only.")
+    fgColor: str = Field(..., description="Internal use only.")
+    order_ref: str = Field(
+        ...,
+        description="User defined string used to identify the order. Value is set using “cOID” field while placing an order.",
+    )
+    timeInForce: str = Field(
+        ..., description="Returns the time in force (tif) of the order."
+    )
+    lastExecutionTime_r: int = Field(
+        ...,
+        description="Returns the epoch time of the most recent execution on the order.",
+    )
+    side: str = Field(..., description="Returns the side of the order.")
+
+
+class OrdersModel(BaseModel):
+    orders: List[OrderDetailModel] = Field(..., description="List of Orders")
+    snapshot: bool = Field(
+        ..., description="Returns if the data is a snapshot of the account’s orders."
+    )
